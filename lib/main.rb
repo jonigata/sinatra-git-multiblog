@@ -24,7 +24,7 @@ class Blog < Sinatra::Base
     articles << article
   end
   
-  articles.sort_by! { |article| article.date }
+  articles.sort_by! { |article| [article.date, article.slug] }
   articles.reverse!
   
   get '/' do
