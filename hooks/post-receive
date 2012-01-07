@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'rest-client'
+RestClient.post 'http://localhost:4567/update', ''
