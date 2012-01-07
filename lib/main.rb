@@ -4,10 +4,13 @@ require 'ostruct'
 require 'time'
 
 class Blog < Sinatra::Base
+  
   use GithubHook
+  
   set :root, File.expand_path('../../', __FILE__)
   set :articles, []
   set :app_file, __FILE__
+  
   Dir.glob "#{root}/articles/*.md" do |file|
     meta, content = File.read(file).split("\n\n", 2)
     article = OpenStruct.new YAML.load(meta)
@@ -19,9 +22,12 @@ class Blog < Sinatra::Base
     end
     articles << article
   end
+  
   articles.sort_by! { |article| article.date }
   articles.reverse!
+  
   get '/' do
     erb :index
   end
+  
 end
