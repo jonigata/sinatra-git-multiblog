@@ -1,6 +1,3 @@
-require 'sinatra/base'
-require 'time'
-
 class GithubHook < Sinatra::Base
   
   def self.parse_git
@@ -23,11 +20,7 @@ class GithubHook < Sinatra::Base
     app.settings.reset!
     load app.settings.app_file
     content_type :txt
-    if settings.autopull?
-      `git pull 2>&1`
-    else
-      "ok"
-    end
+    settings.autopull? ? `git pull 2>&1` : "ok"
   end
   
 end

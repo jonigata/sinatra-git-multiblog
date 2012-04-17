@@ -1,4 +1,3 @@
-require 'sinatra/base'
 require 'github_hook'
 require 'ostruct'
 require 'time'
