@@ -1,3 +1,3 @@
-<% settings.articles.each do |article| %>
-  <%= erb :post, :locals => { :article => article } %>
+<% articles.each do |article| %>
+  <%= erb :post, :locals => { :username => username, :article => article } %>
 <% end %>
