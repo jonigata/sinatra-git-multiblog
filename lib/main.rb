@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'github_hook'
 require 'ostruct'
 require 'time'
 require 'yaml'
@@ -9,15 +8,19 @@ Encoding.default_external = 'UTF-8'
 
 class Blog < Sinatra::Base
   
-  # use GithubHook
-  
   set :root, File.expand_path('../../', __FILE__)
-  set :app_file, __FILE__
-  
+
+  # update repository
+  get %r{^/([-a-zA-Z_]+)/update$} do |username|
+    git = "git --git-dir=#{settings.root}/../var/#{username}/.git"
+    `#{git} pull 2>&1`
+  end
+
+  # user top page
   get '/*' do |username|
     # TODO:
     # とりあえずリアルタイムで
-    # あとでpush hook時にキャッシュするように修正
+    # あとでupdate時にキャッシュするように修正
     articles = []
     Dir.glob "#{settings.root}/var/#{username}/*/*.md" do |file|
       meta, content = File.read(file).split("\n\n", 2)
@@ -33,5 +36,9 @@ class Blog < Sinatra::Base
 
     erb :index, :locals => { :username => username, :articles => articles }
   end
+
+  # user post page
+
+  # 
   
 end
