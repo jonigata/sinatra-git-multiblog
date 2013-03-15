@@ -3,6 +3,7 @@
 require 'ostruct'
 require 'time'
 require 'yaml'
+require 'cgi'
 
 Encoding.default_external = 'UTF-8'
 

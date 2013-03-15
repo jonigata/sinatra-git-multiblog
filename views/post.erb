@@ -13,12 +13,12 @@
   <section class="comments">
     <div>
       コメント: <br>
-      <%= (article.comments || '').gsub(/(\r\n|\r|\n)/, '<br>') %>
+      <%= CGI.escapeHTML(article.comments || '').gsub(/(\r\n|\r|\n)/, '<br>') %>
     </div>
   </section>
   <section class="post-comment">
     <form method="post" action="/<%= username %>/post/<%= article.slug %>">
-      <input type="textarea" name="comment">
+      <textarea name="comment"></textarea>
       <input type="submit" value="コメント">
     </form>
   </section>
